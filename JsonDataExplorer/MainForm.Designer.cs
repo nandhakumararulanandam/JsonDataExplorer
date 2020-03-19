@@ -127,7 +127,7 @@
             this.textBoxQueryResults.Name = "textBoxQueryResults";
             this.textBoxQueryResults.ReadOnly = true;
             this.textBoxQueryResults.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxQueryResults.Size = new System.Drawing.Size(763, 451);
+            this.textBoxQueryResults.Size = new System.Drawing.Size(763, 460);
             this.textBoxQueryResults.TabIndex = 7;
             // 
             // labelResultSummary
@@ -164,6 +164,7 @@
             // 
             // MainForm
             // 
+            this.AcceptButton = this.buttonExecute;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(834, 711);
@@ -178,6 +179,7 @@
             this.Controls.Add(this.buttonOpenFileDialog);
             this.Controls.Add(this.textBoxInputFilePath);
             this.Controls.Add(this.labelInputFilePath);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainForm";

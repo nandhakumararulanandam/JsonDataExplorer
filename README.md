@@ -12,7 +12,7 @@ Built on top of JsonPath
 
 # Example
 Consider the following as the json content of the file being loaded in the tool
-~~~json
+~~~javascript
 {
   'Stores': [
     'Lambton Quay',
