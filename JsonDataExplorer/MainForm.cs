@@ -1,34 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.SqlServer.Server;
-using Newtonsoft.Json;
+using JsonDataExplorer.Properties;
 using Newtonsoft.Json.Linq;
 
 namespace JsonDataExplorer
 {
     public partial class MainForm : Form
     {
+        #region Props & Enums
+
         private string InputFilePath { get; set; }
         private string Query { get; set; }
         private DataFileType DataFileExtension { get; set; }
         private JToken[] SearchTokens { get; set; }
-
         private int CurrentIndex { get; set; }
 
         private enum DataFileType
         {
+            // ReSharper disable InconsistentNaming
+            // ReSharper disable UnusedMember.Local
             XML,
             JSON,
             UNKNOWN
+            // ReSharper enable UnusedMember.Local
+            // ReSharper enable InconsistentNaming
         }
+
+        #endregion
+
         public MainForm()
         {
             InitializeComponent();
@@ -37,24 +38,24 @@ namespace JsonDataExplorer
             labelResultSummary.Text = string.Empty;
         }
 
+        #region Button Events
+
         private void ButtonOpenFileDialog_Click(object sender, EventArgs e)
         {
             var dialogResult = openFileDialog.ShowDialog();
 
-            if (dialogResult == DialogResult.OK)
-            {
-                InputFilePath = openFileDialog.FileName;
-                textBoxInputFilePath.Text = InputFilePath;
-                SearchTokens = new JToken[0];
-                CurrentIndex = 0;
-            }
+            if (dialogResult != DialogResult.OK) return;
+            InputFilePath = openFileDialog.FileName;
+            textBoxInputFilePath.Text = InputFilePath;
+            SearchTokens = new JToken[0];
+            CurrentIndex = 0;
         }
 
-        private void buttonExecute_Click(object sender, EventArgs e)
+        private void ButtonExecute_Click(object sender, EventArgs e)
         {
             if (!IsValidate(out var message))
             {
-                MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(message, Resources.STR_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -72,13 +73,13 @@ namespace JsonDataExplorer
                 if (SearchTokens.Any())
                 {
                     textBoxQueryResults.Text = SearchTokens[CurrentIndex].ToString();
-                    labelResultSummary.Text = $"Displaying {CurrentIndex + 1}/{SearchTokens.Count()}";
+                    SetDisplayResults();
                 }
                 else
                 {
                     textBoxQueryResults.Text = string.Empty;
                     labelResultSummary.Text = string.Empty;
-                    MessageBox.Show("No results found, modify the query", "Warning", MessageBoxButtons.OK,
+                    MessageBox.Show(Resources.STR_INFO_MODIFY_QUERY, Resources.STR_TITLE_WARNING, MessageBoxButtons.OK,
                         MessageBoxIcon.Warning);
                     textBoxQuery.Focus();
                 }
@@ -86,84 +87,58 @@ namespace JsonDataExplorer
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error in processing Query, Please check Query Format : {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format(Resources.STR_ERROR_PROCESSING_QUERY, ex.Message), Resources.STR_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
 
-        private string GetFileExtension()
-        {
-            return Path.GetExtension(InputFilePath).ToUpper().Substring(1);
-        }
-
-       
-        private bool IsValidate(out string message)
-        {
-            message = string.Empty;
-            if (string.IsNullOrWhiteSpace(InputFilePath))
-            {
-                message = "Input file can't be empty";
-                return false;
-            }
-
-            if (!File.Exists(InputFilePath))
-            {
-                message = "Cannot find input file";
-                return false;
-            }
-
-
-            DataFileExtension = DataFileType.UNKNOWN;
-
-            if (Enum.TryParse(GetFileExtension(), out DataFileType extension))
-                DataFileExtension = extension;
-
-
-            if (DataFileExtension == DataFileType.UNKNOWN)
-            {
-                message = "Invalid input file format";
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(textBoxQuery.Text))
-            {
-                message = "Query cannot be empty";
-                return false;
-            }
-
-            return true;
-        }
-
-
-        private void textBoxInputFilePath_TextChanged(object sender, EventArgs e)
-        {
-            InputFilePath = textBoxInputFilePath.Text;
-        }
-
-        private void buttonNextItem_Click(object sender, EventArgs e)
+        private void ButtonNextItem_Click(object sender, EventArgs e)
         {
             CurrentIndex++;
             if (CurrentIndex < SearchTokens.Length)
             {
                 textBoxQueryResults.Text = SearchTokens[CurrentIndex].ToString();
-                labelResultSummary.Text = $"Displaying {CurrentIndex + 1}/{SearchTokens.Count()}";
+                SetDisplayResults();
             }
 
             ValidateButtons();
         }
 
-
-        private void buttonPreviousItem_Click(object sender, EventArgs e)
+        private void ButtonPreviousItem_Click(object sender, EventArgs e)
         {
             CurrentIndex--;
             if (CurrentIndex >= 0)
             {
                 textBoxQueryResults.Text = SearchTokens[CurrentIndex].ToString();
-                labelResultSummary.Text = $"Displaying {CurrentIndex + 1}/{SearchTokens.Count()}";
+                SetDisplayResults();
             }
 
             ValidateButtons();
         }
+
+        #endregion
+
+        #region Text Change Events
+
+        private void TextBoxInputFilePath_TextChanged(object sender, EventArgs e)
+        {
+            InputFilePath = textBoxInputFilePath.Text;
+        }
+
+        private void TextBoxQuery_TextChanged(object sender, EventArgs e)
+        {
+            Query = textBoxQuery.Text;
+        }
+
+        #endregion
+
+        #region Helper Functions
+
+        private void SetDisplayResults()
+        {
+            labelResultSummary.Text = string.Format(Resources.STR_INFO_QUERY_RESULTS, CurrentIndex + 1, SearchTokens.Length);
+        }
+
         private void ValidateButtons()
         {
             textBoxQueryResults.Select(0, 0);
@@ -172,9 +147,44 @@ namespace JsonDataExplorer
             buttonNextItem.Enabled = CurrentIndex < SearchTokens.Length - 1;
         }
 
-        private void textBoxQuery_TextChanged(object sender, EventArgs e)
+        private bool IsValidate(out string message)
         {
-            Query = textBoxQuery.Text;
+            message = string.Empty;
+            if (string.IsNullOrWhiteSpace(InputFilePath))
+            {
+                message = Resources.STR_VAL_INPUT_FILE_EMPTY;
+                return false;
+            }
+
+            if (!File.Exists(InputFilePath))
+            {
+                message = Resources.STR_VAL_INPUT_FILE_NOT_FOUND;
+                return false;
+            }
+
+            DataFileExtension = DataFileType.UNKNOWN;
+
+            if (Enum.TryParse(GetFileExtension(), out DataFileType extension))
+                DataFileExtension = extension;
+
+            if (DataFileExtension == DataFileType.UNKNOWN)
+            {
+                message = Resources.STR_VAL_INPUT_FILE_FORMAT;
+                return false;
+            }
+
+            if (!string.IsNullOrWhiteSpace(textBoxQuery.Text)) return true;
+            message = Resources.STR_VAL_QUERY_EMPTY;
+            return false;
+
         }
+
+        private string GetFileExtension()
+        {
+            return Path.GetExtension(InputFilePath)?.ToUpper().Substring(1);
+        }
+
+        #endregion
+
     }
 }

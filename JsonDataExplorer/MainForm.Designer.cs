@@ -46,28 +46,28 @@
             // labelInputFilePath
             // 
             this.labelInputFilePath.AutoSize = true;
-            this.labelInputFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelInputFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelInputFilePath.Location = new System.Drawing.Point(33, 23);
             this.labelInputFilePath.Name = "labelInputFilePath";
-            this.labelInputFilePath.Size = new System.Drawing.Size(152, 15);
+            this.labelInputFilePath.Size = new System.Drawing.Size(124, 16);
             this.labelInputFilePath.TabIndex = 0;
-            this.labelInputFilePath.Text = "Json or Xml Data File Path";
+            this.labelInputFilePath.Text = "Json Data File Path";
             // 
             // textBoxInputFilePath
             // 
             this.textBoxInputFilePath.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxInputFilePath.Location = new System.Drawing.Point(36, 49);
+            this.textBoxInputFilePath.Location = new System.Drawing.Point(36, 52);
             this.textBoxInputFilePath.Name = "textBoxInputFilePath";
             this.textBoxInputFilePath.Size = new System.Drawing.Size(665, 23);
             this.textBoxInputFilePath.TabIndex = 1;
-            this.textBoxInputFilePath.TextChanged += new System.EventHandler(this.textBoxInputFilePath_TextChanged);
+            this.textBoxInputFilePath.TextChanged += new System.EventHandler(this.TextBoxInputFilePath_TextChanged);
             // 
             // buttonOpenFileDialog
             // 
             this.buttonOpenFileDialog.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonOpenFileDialog.Location = new System.Drawing.Point(724, 49);
             this.buttonOpenFileDialog.Name = "buttonOpenFileDialog";
-            this.buttonOpenFileDialog.Size = new System.Drawing.Size(75, 23);
+            this.buttonOpenFileDialog.Size = new System.Drawing.Size(75, 28);
             this.buttonOpenFileDialog.TabIndex = 2;
             this.buttonOpenFileDialog.Text = "Open File";
             this.buttonOpenFileDialog.UseVisualStyleBackColor = true;
@@ -76,45 +76,45 @@
             // labelQueryData
             // 
             this.labelQueryData.AutoSize = true;
-            this.labelQueryData.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQueryData.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelQueryData.Location = new System.Drawing.Point(33, 84);
             this.labelQueryData.Name = "labelQueryData";
-            this.labelQueryData.Size = new System.Drawing.Size(65, 15);
+            this.labelQueryData.Size = new System.Drawing.Size(73, 16);
             this.labelQueryData.TabIndex = 0;
             this.labelQueryData.Text = "QueryData";
             // 
             // textBoxQuery
             // 
             this.textBoxQuery.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxQuery.Location = new System.Drawing.Point(36, 110);
+            this.textBoxQuery.Location = new System.Drawing.Point(36, 113);
             this.textBoxQuery.Name = "textBoxQuery";
             this.textBoxQuery.Size = new System.Drawing.Size(665, 23);
             this.textBoxQuery.TabIndex = 3;
-            this.textBoxQuery.TextChanged += new System.EventHandler(this.textBoxQuery_TextChanged);
+            this.textBoxQuery.TextChanged += new System.EventHandler(this.TextBoxQuery_TextChanged);
             // 
             // buttonExecute
             // 
             this.buttonExecute.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonExecute.Location = new System.Drawing.Point(724, 110);
             this.buttonExecute.Name = "buttonExecute";
-            this.buttonExecute.Size = new System.Drawing.Size(75, 23);
+            this.buttonExecute.Size = new System.Drawing.Size(75, 28);
             this.buttonExecute.TabIndex = 4;
             this.buttonExecute.Text = "Execute";
             this.buttonExecute.UseVisualStyleBackColor = true;
-            this.buttonExecute.Click += new System.EventHandler(this.buttonExecute_Click);
+            this.buttonExecute.Click += new System.EventHandler(this.ButtonExecute_Click);
             // 
             // openFileDialog
             // 
             this.openFileDialog.FileName = "openFileDialog";
-            this.openFileDialog.Filter = "Json Files|*.json|XML Files|*.xml";
+            this.openFileDialog.Filter = "Json Files|*.json";
             // 
             // labelQueryResults
             // 
             this.labelQueryResults.AutoSize = true;
-            this.labelQueryResults.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelQueryResults.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelQueryResults.Location = new System.Drawing.Point(33, 169);
             this.labelQueryResults.Name = "labelQueryResults";
-            this.labelQueryResults.Size = new System.Drawing.Size(83, 15);
+            this.labelQueryResults.Size = new System.Drawing.Size(92, 16);
             this.labelQueryResults.TabIndex = 0;
             this.labelQueryResults.Text = "Query Results";
             // 
@@ -133,34 +133,34 @@
             // labelResultSummary
             // 
             this.labelResultSummary.AutoSize = true;
-            this.labelResultSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelResultSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelResultSummary.Location = new System.Drawing.Point(167, 169);
             this.labelResultSummary.Name = "labelResultSummary";
-            this.labelResultSummary.Size = new System.Drawing.Size(98, 15);
+            this.labelResultSummary.Size = new System.Drawing.Size(106, 16);
             this.labelResultSummary.TabIndex = 0;
             this.labelResultSummary.Text = "Result Summary";
             // 
             // buttonNextItem
             // 
             this.buttonNextItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonNextItem.Location = new System.Drawing.Point(724, 164);
+            this.buttonNextItem.Location = new System.Drawing.Point(724, 162);
             this.buttonNextItem.Name = "buttonNextItem";
-            this.buttonNextItem.Size = new System.Drawing.Size(75, 23);
+            this.buttonNextItem.Size = new System.Drawing.Size(75, 28);
             this.buttonNextItem.TabIndex = 6;
             this.buttonNextItem.Text = "Next >";
             this.buttonNextItem.UseVisualStyleBackColor = true;
-            this.buttonNextItem.Click += new System.EventHandler(this.buttonNextItem_Click);
+            this.buttonNextItem.Click += new System.EventHandler(this.ButtonNextItem_Click);
             // 
             // buttonPreviousItem
             // 
             this.buttonPreviousItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonPreviousItem.Location = new System.Drawing.Point(626, 164);
+            this.buttonPreviousItem.Location = new System.Drawing.Point(626, 162);
             this.buttonPreviousItem.Name = "buttonPreviousItem";
-            this.buttonPreviousItem.Size = new System.Drawing.Size(75, 23);
+            this.buttonPreviousItem.Size = new System.Drawing.Size(75, 28);
             this.buttonPreviousItem.TabIndex = 5;
             this.buttonPreviousItem.Text = "< Previous";
             this.buttonPreviousItem.UseVisualStyleBackColor = true;
-            this.buttonPreviousItem.Click += new System.EventHandler(this.buttonPreviousItem_Click);
+            this.buttonPreviousItem.Click += new System.EventHandler(this.ButtonPreviousItem_Click);
             // 
             // MainForm
             // 
