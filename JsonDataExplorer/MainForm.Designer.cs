@@ -41,6 +41,8 @@
             this.labelResultSummary = new System.Windows.Forms.Label();
             this.buttonNextItem = new System.Windows.Forms.Button();
             this.buttonPreviousItem = new System.Windows.Forms.Button();
+            this.webBrowserResults = new System.Windows.Forms.WebBrowser();
+            this.comboBoxDisplayFormat = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // labelInputFilePath
@@ -112,7 +114,7 @@
             // 
             this.labelQueryResults.AutoSize = true;
             this.labelQueryResults.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQueryResults.Location = new System.Drawing.Point(33, 169);
+            this.labelQueryResults.Location = new System.Drawing.Point(33, 170);
             this.labelQueryResults.Name = "labelQueryResults";
             this.labelQueryResults.Size = new System.Drawing.Size(92, 16);
             this.labelQueryResults.TabIndex = 0;
@@ -134,7 +136,7 @@
             // 
             this.labelResultSummary.AutoSize = true;
             this.labelResultSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelResultSummary.Location = new System.Drawing.Point(167, 169);
+            this.labelResultSummary.Location = new System.Drawing.Point(152, 170);
             this.labelResultSummary.Name = "labelResultSummary";
             this.labelResultSummary.Size = new System.Drawing.Size(106, 16);
             this.labelResultSummary.TabIndex = 0;
@@ -143,7 +145,7 @@
             // buttonNextItem
             // 
             this.buttonNextItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonNextItem.Location = new System.Drawing.Point(724, 162);
+            this.buttonNextItem.Location = new System.Drawing.Point(724, 164);
             this.buttonNextItem.Name = "buttonNextItem";
             this.buttonNextItem.Size = new System.Drawing.Size(75, 28);
             this.buttonNextItem.TabIndex = 6;
@@ -154,7 +156,7 @@
             // buttonPreviousItem
             // 
             this.buttonPreviousItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonPreviousItem.Location = new System.Drawing.Point(626, 162);
+            this.buttonPreviousItem.Location = new System.Drawing.Point(626, 164);
             this.buttonPreviousItem.Name = "buttonPreviousItem";
             this.buttonPreviousItem.Size = new System.Drawing.Size(75, 28);
             this.buttonPreviousItem.TabIndex = 5;
@@ -162,12 +164,37 @@
             this.buttonPreviousItem.UseVisualStyleBackColor = true;
             this.buttonPreviousItem.Click += new System.EventHandler(this.ButtonPreviousItem_Click);
             // 
+            // webBrowserResults
+            // 
+            this.webBrowserResults.Location = new System.Drawing.Point(36, 207);
+            this.webBrowserResults.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowserResults.Name = "webBrowserResults";
+            this.webBrowserResults.Size = new System.Drawing.Size(763, 460);
+            this.webBrowserResults.TabIndex = 8;
+            // 
+            // comboBoxDisplayFormat
+            // 
+            this.comboBoxDisplayFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxDisplayFormat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxDisplayFormat.FormattingEnabled = true;
+            this.comboBoxDisplayFormat.Items.AddRange(new object[] {
+            "Text",
+            "Javascript",
+            "Json"});
+            this.comboBoxDisplayFormat.Location = new System.Drawing.Point(518, 166);
+            this.comboBoxDisplayFormat.Name = "comboBoxDisplayFormat";
+            this.comboBoxDisplayFormat.Size = new System.Drawing.Size(94, 23);
+            this.comboBoxDisplayFormat.TabIndex = 9;
+            this.comboBoxDisplayFormat.SelectedIndexChanged += new System.EventHandler(this.ComboBoxDisplayFormat_SelectedIndexChanged);
+            // 
             // MainForm
             // 
             this.AcceptButton = this.buttonExecute;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(834, 711);
+            this.Controls.Add(this.comboBoxDisplayFormat);
+            this.Controls.Add(this.webBrowserResults);
             this.Controls.Add(this.buttonPreviousItem);
             this.Controls.Add(this.buttonNextItem);
             this.Controls.Add(this.labelResultSummary);
@@ -203,6 +230,8 @@
         private System.Windows.Forms.Label labelResultSummary;
         private System.Windows.Forms.Button buttonNextItem;
         private System.Windows.Forms.Button buttonPreviousItem;
+        private System.Windows.Forms.WebBrowser webBrowserResults;
+        private System.Windows.Forms.ComboBox comboBoxDisplayFormat;
     }
 }
 

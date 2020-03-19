@@ -1,8 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 using JsonDataExplorer.Properties;
+using Markdig;
+using Markdig.SyntaxHighlighting;
 using Newtonsoft.Json.Linq;
 
 namespace JsonDataExplorer
@@ -16,6 +19,8 @@ namespace JsonDataExplorer
         private DataFileType DataFileExtension { get; set; }
         private JToken[] SearchTokens { get; set; }
         private int CurrentIndex { get; set; }
+
+        private readonly MarkdownPipeline _syntaxPipeLine;
 
         private enum DataFileType
         {
@@ -36,6 +41,12 @@ namespace JsonDataExplorer
             buttonNextItem.Enabled = false;
             buttonPreviousItem.Enabled = false;
             labelResultSummary.Text = string.Empty;
+            _syntaxPipeLine = new MarkdownPipelineBuilder()
+                .UseAdvancedExtensions()
+                .UseSyntaxHighlighting()
+                .Build();
+            comboBoxDisplayFormat.SelectedIndex = 0;
+            webBrowserResults.Hide();
         }
 
         #region Button Events
@@ -72,8 +83,8 @@ namespace JsonDataExplorer
                 SearchTokens = jTokens as JToken[] ?? jTokens.ToArray();
                 if (SearchTokens.Any())
                 {
-                    textBoxQueryResults.Text = SearchTokens[CurrentIndex].ToString();
-                    SetDisplayResults();
+                    SetDisplayResults(SearchTokens[CurrentIndex].ToString());
+                    SetDisplayResultSummary();
                 }
                 else
                 {
@@ -97,8 +108,8 @@ namespace JsonDataExplorer
             CurrentIndex++;
             if (CurrentIndex < SearchTokens.Length)
             {
-                textBoxQueryResults.Text = SearchTokens[CurrentIndex].ToString();
-                SetDisplayResults();
+                SetDisplayResults(SearchTokens[CurrentIndex].ToString());
+                SetDisplayResultSummary();
             }
 
             ValidateButtons();
@@ -109,11 +120,19 @@ namespace JsonDataExplorer
             CurrentIndex--;
             if (CurrentIndex >= 0)
             {
-                textBoxQueryResults.Text = SearchTokens[CurrentIndex].ToString();
-                SetDisplayResults();
+                SetDisplayResults(SearchTokens[CurrentIndex].ToString());
+                SetDisplayResultSummary();
             }
 
             ValidateButtons();
+        }
+
+        private void ComboBoxDisplayFormat_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (SearchTokens != null && SearchTokens.Any())
+            {
+                SetDisplayResults(SearchTokens[CurrentIndex].ToString());
+            }
         }
 
         #endregion
@@ -134,9 +153,30 @@ namespace JsonDataExplorer
 
         #region Helper Functions
 
-        private void SetDisplayResults()
+        private void SetDisplayResultSummary()
         {
             labelResultSummary.Text = string.Format(Resources.STR_INFO_QUERY_RESULTS, CurrentIndex + 1, SearchTokens.Length);
+        }
+
+        private void SetDisplayResults(string jsonContent)
+        {
+            var selectedIndex = comboBoxDisplayFormat.SelectedIndex;
+
+            if (selectedIndex == 0)
+            {
+                textBoxQueryResults.Show();
+                textBoxQueryResults.Text= jsonContent;
+            }
+            else
+            {
+                webBrowserResults.Show();
+                var builder = new StringBuilder();
+                builder.AppendLine( selectedIndex == 1 ? "~~~javascript" : "~~~json");
+                builder.AppendLine(jsonContent);
+                builder.AppendLine("~~~");
+
+                webBrowserResults.DocumentText = Markdown.ToHtml(builder.ToString(), _syntaxPipeLine);
+            }
         }
 
         private void ValidateButtons()
@@ -185,6 +225,5 @@ namespace JsonDataExplorer
         }
 
         #endregion
-
     }
 }
