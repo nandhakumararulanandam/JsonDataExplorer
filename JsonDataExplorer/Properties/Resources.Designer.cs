@@ -79,11 +79,20 @@ namespace JsonDataExplorer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Displaying {0} / {1}.
+        ///   Looks up a localized string similar to Displaying {0} / {1} Items.
         /// </summary>
         internal static string STR_INFO_QUERY_RESULTS {
             get {
                 return ResourceManager.GetString("STR_INFO_QUERY_RESULTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Displaying {0} Items.
+        /// </summary>
+        internal static string STR_INFO_QUERY_RESULTS_LIST {
+            get {
+                return ResourceManager.GetString("STR_INFO_QUERY_RESULTS_LIST", resourceCulture);
             }
         }
         

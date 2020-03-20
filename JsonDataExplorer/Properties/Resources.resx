@@ -124,7 +124,10 @@
     <value>No results found, modify the query</value>
   </data>
   <data name="STR_INFO_QUERY_RESULTS" xml:space="preserve">
-    <value>Displaying {0} / {1}</value>
+    <value>Displaying {0} / {1} Items</value>
+  </data>
+  <data name="STR_INFO_QUERY_RESULTS_LIST" xml:space="preserve">
+    <value>Displaying {0} Items</value>
   </data>
   <data name="STR_TITLE_ERROR" xml:space="preserve">
     <value>Error</value>

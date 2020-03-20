@@ -22,6 +22,14 @@ namespace JsonDataExplorer
 
         private readonly MarkdownPipeline _syntaxPipeLine;
 
+        private enum Filtering
+        {
+            Pagination = 0,
+            List = 1,
+            UniqueList = 2,
+            UniqueListWithCount = 3,
+        }
+
         private enum DataFileType
         {
             // ReSharper disable InconsistentNaming
@@ -46,6 +54,7 @@ namespace JsonDataExplorer
                 .UseSyntaxHighlighting()
                 .Build();
             comboBoxDisplayFormat.SelectedIndex = 0;
+            comboBoxFiltering.SelectedIndex = 0;
             webBrowserResults.Hide();
         }
 
@@ -83,8 +92,7 @@ namespace JsonDataExplorer
                 SearchTokens = jTokens as JToken[] ?? jTokens.ToArray();
                 if (SearchTokens.Any())
                 {
-                    SetDisplayResults(SearchTokens[CurrentIndex].ToString());
-                    SetDisplayResultSummary();
+                    SetDisplayResults();
                 }
                 else
                 {
@@ -108,7 +116,7 @@ namespace JsonDataExplorer
             CurrentIndex++;
             if (CurrentIndex < SearchTokens.Length)
             {
-                SetDisplayResults(SearchTokens[CurrentIndex].ToString());
+                SetDisplayResults();
                 SetDisplayResultSummary();
             }
 
@@ -120,7 +128,7 @@ namespace JsonDataExplorer
             CurrentIndex--;
             if (CurrentIndex >= 0)
             {
-                SetDisplayResults(SearchTokens[CurrentIndex].ToString());
+                SetDisplayResults();
                 SetDisplayResultSummary();
             }
 
@@ -131,7 +139,16 @@ namespace JsonDataExplorer
         {
             if (SearchTokens != null && SearchTokens.Any())
             {
-                SetDisplayResults(SearchTokens[CurrentIndex].ToString());
+                SetDisplayResults();
+            }
+        }
+
+        private void ComboBoxFiltering_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (SearchTokens != null && SearchTokens.Any())
+            {
+                SetDisplayResults();
+                ValidateButtons();
             }
         }
 
@@ -153,25 +170,60 @@ namespace JsonDataExplorer
 
         #region Helper Functions
 
-        private void SetDisplayResultSummary()
+        private void SetDisplayResultSummary(int count = 0)
         {
-            labelResultSummary.Text = string.Format(Resources.STR_INFO_QUERY_RESULTS, CurrentIndex + 1, SearchTokens.Length);
+            labelResultSummary.Text = comboBoxFiltering.SelectedIndex == 0
+                ? string.Format(Resources.STR_INFO_QUERY_RESULTS, CurrentIndex + 1, SearchTokens.Length)
+                : string.Format(Resources.STR_INFO_QUERY_RESULTS_LIST, count == 0 ? SearchTokens.Length : count);
         }
 
-        private void SetDisplayResults(string jsonContent)
+        private void SetDisplayResults()
         {
-            var selectedIndex = comboBoxDisplayFormat.SelectedIndex;
+            string jsonContent;
+            var selectedFilterIndex = (Filtering)comboBoxFiltering.SelectedIndex;
+            var selectedDisplayIndex = comboBoxDisplayFormat.SelectedIndex;
 
-            if (selectedIndex == 0)
+            switch (selectedFilterIndex)
+            {
+                case Filtering.Pagination:
+                    jsonContent = SearchTokens[CurrentIndex].ToString();
+                    SetDisplayResultSummary();
+                    break;
+                case Filtering.List:
+                    jsonContent = string.Join(Environment.NewLine, SearchTokens.Select(e => e.ToString()));
+                    SetDisplayResultSummary();
+                    break;
+                case Filtering.UniqueList:
+                case Filtering.UniqueListWithCount:
+                    {
+                        var uniqueItems = SearchTokens.GroupBy(x => x.ToString())
+                            .Select(g => new { Text = g.Key, Count = g.Count() });
+
+                        var str = new StringBuilder();
+                        foreach (var item in uniqueItems)
+                        {
+                            str.AppendLine(selectedFilterIndex == Filtering.UniqueList
+                                ? item.Text
+                                : $"{item.Text.PadRight(75, ' ')}- {item.Count}");
+                        }
+                        jsonContent = str.ToString();
+                        SetDisplayResultSummary(uniqueItems.Count());
+                        break;
+                    }
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            if (selectedDisplayIndex == 0)
             {
                 textBoxQueryResults.Show();
-                textBoxQueryResults.Text= jsonContent;
+                textBoxQueryResults.Text = jsonContent;
             }
             else
             {
                 webBrowserResults.Show();
                 var builder = new StringBuilder();
-                builder.AppendLine( selectedIndex == 1 ? "~~~javascript" : "~~~json");
+                builder.AppendLine(selectedDisplayIndex == 1 ? "~~~javascript" : "~~~json");
                 builder.AppendLine(jsonContent);
                 builder.AppendLine("~~~");
 
@@ -183,8 +235,16 @@ namespace JsonDataExplorer
         {
             textBoxQueryResults.Select(0, 0);
             textBoxQueryResults.ScrollToCaret();
-            buttonPreviousItem.Enabled = CurrentIndex > 0;
-            buttonNextItem.Enabled = CurrentIndex < SearchTokens.Length - 1;
+            if (comboBoxFiltering.SelectedIndex != 0)
+            {
+                buttonPreviousItem.Enabled = false;
+                buttonNextItem.Enabled = false;
+            }
+            else
+            {
+                buttonPreviousItem.Enabled = CurrentIndex > 0;
+                buttonNextItem.Enabled = CurrentIndex < SearchTokens.Length - 1;
+            }
         }
 
         private bool IsValidate(out string message)
