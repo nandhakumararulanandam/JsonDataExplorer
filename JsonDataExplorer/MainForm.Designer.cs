@@ -48,33 +48,39 @@ namespace JsonDataExplorer
             this.labelDisplayFormat = new System.Windows.Forms.Label();
             this.labelFiltering = new System.Windows.Forms.Label();
             this.comboBoxFiltering = new System.Windows.Forms.ComboBox();
+            this.buttonReloadFile = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelInputFilePath
             // 
             this.labelInputFilePath.AutoSize = true;
             this.labelInputFilePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelInputFilePath.Location = new System.Drawing.Point(33, 23);
+            this.labelInputFilePath.Location = new System.Drawing.Point(50, 35);
+            this.labelInputFilePath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelInputFilePath.Name = "labelInputFilePath";
-            this.labelInputFilePath.Size = new System.Drawing.Size(124, 16);
+            this.labelInputFilePath.Size = new System.Drawing.Size(182, 25);
             this.labelInputFilePath.TabIndex = 0;
             this.labelInputFilePath.Text = "Json Data File Path";
             // 
             // textBoxInputFilePath
             // 
+            this.textBoxInputFilePath.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.textBoxInputFilePath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.textBoxInputFilePath.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxInputFilePath.Location = new System.Drawing.Point(33, 52);
+            this.textBoxInputFilePath.Location = new System.Drawing.Point(50, 80);
+            this.textBoxInputFilePath.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBoxInputFilePath.Name = "textBoxInputFilePath";
-            this.textBoxInputFilePath.Size = new System.Drawing.Size(665, 23);
+            this.textBoxInputFilePath.Size = new System.Drawing.Size(895, 31);
             this.textBoxInputFilePath.TabIndex = 1;
             this.textBoxInputFilePath.TextChanged += new System.EventHandler(this.TextBoxInputFilePath_TextChanged);
             // 
             // buttonOpenFileDialog
             // 
             this.buttonOpenFileDialog.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonOpenFileDialog.Location = new System.Drawing.Point(724, 49);
+            this.buttonOpenFileDialog.Location = new System.Drawing.Point(961, 75);
+            this.buttonOpenFileDialog.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonOpenFileDialog.Name = "buttonOpenFileDialog";
-            this.buttonOpenFileDialog.Size = new System.Drawing.Size(75, 28);
+            this.buttonOpenFileDialog.Size = new System.Drawing.Size(112, 43);
             this.buttonOpenFileDialog.TabIndex = 2;
             this.buttonOpenFileDialog.Text = "Open File";
             this.buttonOpenFileDialog.UseVisualStyleBackColor = true;
@@ -84,28 +90,32 @@ namespace JsonDataExplorer
             // 
             this.labelQueryData.AutoSize = true;
             this.labelQueryData.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQueryData.Location = new System.Drawing.Point(33, 84);
+            this.labelQueryData.Location = new System.Drawing.Point(50, 129);
+            this.labelQueryData.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelQueryData.Name = "labelQueryData";
-            this.labelQueryData.Size = new System.Drawing.Size(73, 16);
+            this.labelQueryData.Size = new System.Drawing.Size(107, 25);
             this.labelQueryData.TabIndex = 0;
             this.labelQueryData.Text = "QueryData";
             // 
             // textBoxQuery
             // 
-            this.textBoxQuery.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.textBoxQuery.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.textBoxQuery.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.textBoxQuery.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxQuery.Location = new System.Drawing.Point(33, 113);
+            this.textBoxQuery.Location = new System.Drawing.Point(50, 174);
+            this.textBoxQuery.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBoxQuery.Name = "textBoxQuery";
-            this.textBoxQuery.Size = new System.Drawing.Size(665, 23);
+            this.textBoxQuery.Size = new System.Drawing.Size(996, 31);
             this.textBoxQuery.TabIndex = 3;
             this.textBoxQuery.TextChanged += new System.EventHandler(this.TextBoxQuery_TextChanged);
             // 
             // buttonExecute
             // 
             this.buttonExecute.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonExecute.Location = new System.Drawing.Point(724, 110);
+            this.buttonExecute.Location = new System.Drawing.Point(1086, 169);
+            this.buttonExecute.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonExecute.Name = "buttonExecute";
-            this.buttonExecute.Size = new System.Drawing.Size(75, 28);
+            this.buttonExecute.Size = new System.Drawing.Size(112, 43);
             this.buttonExecute.TabIndex = 4;
             this.buttonExecute.Text = "Execute";
             this.buttonExecute.UseVisualStyleBackColor = true;
@@ -120,9 +130,10 @@ namespace JsonDataExplorer
             // 
             this.labelQueryResults.AutoSize = true;
             this.labelQueryResults.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelQueryResults.Location = new System.Drawing.Point(33, 152);
+            this.labelQueryResults.Location = new System.Drawing.Point(50, 234);
+            this.labelQueryResults.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelQueryResults.Name = "labelQueryResults";
-            this.labelQueryResults.Size = new System.Drawing.Size(92, 16);
+            this.labelQueryResults.Size = new System.Drawing.Size(135, 25);
             this.labelQueryResults.TabIndex = 0;
             this.labelQueryResults.Text = "Query Results";
             // 
@@ -130,30 +141,33 @@ namespace JsonDataExplorer
             // 
             this.textBoxQueryResults.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.textBoxQueryResults.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxQueryResults.Location = new System.Drawing.Point(36, 207);
+            this.textBoxQueryResults.Location = new System.Drawing.Point(54, 318);
+            this.textBoxQueryResults.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBoxQueryResults.Multiline = true;
             this.textBoxQueryResults.Name = "textBoxQueryResults";
             this.textBoxQueryResults.ReadOnly = true;
             this.textBoxQueryResults.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxQueryResults.Size = new System.Drawing.Size(763, 460);
+            this.textBoxQueryResults.Size = new System.Drawing.Size(1142, 706);
             this.textBoxQueryResults.TabIndex = 7;
             // 
             // labelResultSummary
             // 
             this.labelResultSummary.AutoSize = true;
             this.labelResultSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelResultSummary.Location = new System.Drawing.Point(33, 176);
+            this.labelResultSummary.Location = new System.Drawing.Point(50, 271);
+            this.labelResultSummary.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelResultSummary.Name = "labelResultSummary";
-            this.labelResultSummary.Size = new System.Drawing.Size(120, 16);
+            this.labelResultSummary.Size = new System.Drawing.Size(169, 25);
             this.labelResultSummary.TabIndex = 0;
             this.labelResultSummary.Text = "Result Summary";
             // 
             // buttonNextItem
             // 
             this.buttonNextItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonNextItem.Location = new System.Drawing.Point(724, 164);
+            this.buttonNextItem.Location = new System.Drawing.Point(1086, 252);
+            this.buttonNextItem.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonNextItem.Name = "buttonNextItem";
-            this.buttonNextItem.Size = new System.Drawing.Size(75, 28);
+            this.buttonNextItem.Size = new System.Drawing.Size(112, 43);
             this.buttonNextItem.TabIndex = 6;
             this.buttonNextItem.Text = "Next >";
             this.buttonNextItem.UseVisualStyleBackColor = true;
@@ -162,9 +176,10 @@ namespace JsonDataExplorer
             // buttonPreviousItem
             // 
             this.buttonPreviousItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonPreviousItem.Location = new System.Drawing.Point(626, 164);
+            this.buttonPreviousItem.Location = new System.Drawing.Point(939, 252);
+            this.buttonPreviousItem.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonPreviousItem.Name = "buttonPreviousItem";
-            this.buttonPreviousItem.Size = new System.Drawing.Size(75, 28);
+            this.buttonPreviousItem.Size = new System.Drawing.Size(112, 43);
             this.buttonPreviousItem.TabIndex = 5;
             this.buttonPreviousItem.Text = "< Previous";
             this.buttonPreviousItem.UseVisualStyleBackColor = true;
@@ -172,10 +187,11 @@ namespace JsonDataExplorer
             // 
             // webBrowserResults
             // 
-            this.webBrowserResults.Location = new System.Drawing.Point(33, 207);
-            this.webBrowserResults.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowserResults.Location = new System.Drawing.Point(50, 318);
+            this.webBrowserResults.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.webBrowserResults.MinimumSize = new System.Drawing.Size(30, 31);
             this.webBrowserResults.Name = "webBrowserResults";
-            this.webBrowserResults.Size = new System.Drawing.Size(763, 460);
+            this.webBrowserResults.Size = new System.Drawing.Size(1144, 708);
             this.webBrowserResults.TabIndex = 8;
             // 
             // comboBoxDisplayFormat
@@ -187,9 +203,10 @@ namespace JsonDataExplorer
             "Text",
             "Javascript",
             "Json"});
-            this.comboBoxDisplayFormat.Location = new System.Drawing.Point(518, 166);
+            this.comboBoxDisplayFormat.Location = new System.Drawing.Point(777, 255);
+            this.comboBoxDisplayFormat.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.comboBoxDisplayFormat.Name = "comboBoxDisplayFormat";
-            this.comboBoxDisplayFormat.Size = new System.Drawing.Size(94, 23);
+            this.comboBoxDisplayFormat.Size = new System.Drawing.Size(139, 30);
             this.comboBoxDisplayFormat.TabIndex = 9;
             this.comboBoxDisplayFormat.SelectedIndexChanged += new System.EventHandler(this.ComboBoxDisplayFormat_SelectedIndexChanged);
             // 
@@ -197,9 +214,10 @@ namespace JsonDataExplorer
             // 
             this.labelDisplayFormat.AutoSize = true;
             this.labelDisplayFormat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDisplayFormat.Location = new System.Drawing.Point(466, 169);
+            this.labelDisplayFormat.Location = new System.Drawing.Point(699, 260);
+            this.labelDisplayFormat.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelDisplayFormat.Name = "labelDisplayFormat";
-            this.labelDisplayFormat.Size = new System.Drawing.Size(46, 15);
+            this.labelDisplayFormat.Size = new System.Drawing.Size(66, 22);
             this.labelDisplayFormat.TabIndex = 10;
             this.labelDisplayFormat.Text = "Format";
             // 
@@ -207,9 +225,10 @@ namespace JsonDataExplorer
             // 
             this.labelFiltering.AutoSize = true;
             this.labelFiltering.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelFiltering.Location = new System.Drawing.Point(287, 169);
+            this.labelFiltering.Location = new System.Drawing.Point(430, 260);
+            this.labelFiltering.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelFiltering.Name = "labelFiltering";
-            this.labelFiltering.Size = new System.Drawing.Size(51, 15);
+            this.labelFiltering.Size = new System.Drawing.Size(74, 22);
             this.labelFiltering.TabIndex = 11;
             this.labelFiltering.Text = "Filtering";
             // 
@@ -223,18 +242,32 @@ namespace JsonDataExplorer
             "List",
             "Unique List",
             "Group By Count"});
-            this.comboBoxFiltering.Location = new System.Drawing.Point(344, 166);
+            this.comboBoxFiltering.Location = new System.Drawing.Point(516, 255);
+            this.comboBoxFiltering.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.comboBoxFiltering.Name = "comboBoxFiltering";
-            this.comboBoxFiltering.Size = new System.Drawing.Size(112, 23);
+            this.comboBoxFiltering.Size = new System.Drawing.Size(166, 30);
             this.comboBoxFiltering.TabIndex = 12;
             this.comboBoxFiltering.SelectedIndexChanged += new System.EventHandler(this.ComboBoxFiltering_SelectedIndexChanged);
+            // 
+            // buttonReloadFile
+            // 
+            this.buttonReloadFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonReloadFile.Location = new System.Drawing.Point(1086, 75);
+            this.buttonReloadFile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.buttonReloadFile.Name = "buttonReloadFile";
+            this.buttonReloadFile.Size = new System.Drawing.Size(112, 43);
+            this.buttonReloadFile.TabIndex = 13;
+            this.buttonReloadFile.Text = "Reload File";
+            this.buttonReloadFile.UseVisualStyleBackColor = true;
+            this.buttonReloadFile.Click += new System.EventHandler(this.ButtonReloadFile_Click);
             // 
             // MainForm
             // 
             this.AcceptButton = this.buttonExecute;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(834, 711);
+            this.ClientSize = new System.Drawing.Size(1251, 1094);
+            this.Controls.Add(this.buttonReloadFile);
             this.Controls.Add(this.comboBoxFiltering);
             this.Controls.Add(this.labelFiltering);
             this.Controls.Add(this.labelDisplayFormat);
@@ -253,9 +286,11 @@ namespace JsonDataExplorer
             this.Controls.Add(this.labelInputFilePath);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "JsonDataExplorer";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -270,6 +305,7 @@ namespace JsonDataExplorer
         private System.Windows.Forms.TextBox textBoxQuery;
         private System.Windows.Forms.Button buttonExecute;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.Button buttonReloadFile;
         private System.Windows.Forms.Label labelQueryResults;
         private System.Windows.Forms.TextBox textBoxQueryResults;
         private System.Windows.Forms.Label labelResultSummary;

@@ -14,6 +14,14 @@ namespace JsonDataExplorer
     {
         #region Props & Enums
 
+        private static string PreviousFilePath { get; set; } = string.Empty;
+        private static string FileContent { get; set; }
+
+        private readonly AutoCompleteStringCollection AutoCompleteFileHistory = new AutoCompleteStringCollection();
+        private readonly AutoCompleteStringCollection AutoCompleteQueryHistory = new AutoCompleteStringCollection();
+
+        private const string FileHistoryPath = "FileHistory.txt";
+        private const string QueryHistoryPath = "QueryHistory.txt";
         private string InputFilePath { get; set; }
         private string Query { get; set; }
         private DataFileType DataFileExtension { get; set; }
@@ -58,6 +66,23 @@ namespace JsonDataExplorer
             webBrowserResults.Hide();
         }
 
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            if (File.Exists(FileHistoryPath))
+            {
+                string[] lines = File.ReadAllLines(FileHistoryPath);
+                AutoCompleteFileHistory.AddRange(lines);
+                textBoxInputFilePath.AutoCompleteCustomSource = AutoCompleteFileHistory;
+            }
+
+            if (File.Exists(QueryHistoryPath))
+            {
+                string[] queries = File.ReadAllLines(QueryHistoryPath);
+                AutoCompleteQueryHistory.AddRange(queries);
+                textBoxQuery.AutoCompleteCustomSource = AutoCompleteQueryHistory;
+            }
+        }
+
         #region Button Events
 
         private void ButtonOpenFileDialog_Click(object sender, EventArgs e)
@@ -71,23 +96,36 @@ namespace JsonDataExplorer
             CurrentIndex = 0;
         }
 
+        private void ButtonReloadFile_Click(object sender, EventArgs e)
+        {
+            LoadFileContent(true);
+        }
+
         private void ButtonExecute_Click(object sender, EventArgs e)
         {
-            if (!IsValidate(out var message))
-            {
-                MessageBox.Show(message, Resources.STR_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            SearchTokens = new JToken[0];
-            CurrentIndex = 0;
-            ValidateButtons();
-
             try
             {
-                var fileContent = File.ReadAllText(InputFilePath);
-                var jObject = JObject.Parse(fileContent);
-                var jTokens = jObject.SelectTokens(Query);
+                if (!IsValidate(out var message))
+                {
+                    MessageBox.Show(message, Resources.STR_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                SearchTokens = new JToken[0];
+                CurrentIndex = 0;
+                ValidateButtons();
+
+                Cursor = Cursors.WaitCursor;
+                buttonOpenFileDialog.Enabled = false;
+                buttonReloadFile.Enabled = false;
+                buttonExecute.Enabled = false;
+                buttonPreviousItem.Enabled = false;
+                buttonNextItem.Enabled = false;
+
+                LoadFileContent();
+                UpdateHistory();
+                var jToken = JToken.Parse(FileContent);
+                var jTokens = jToken.SelectTokens(Query);
 
                 SearchTokens = jTokens as JToken[] ?? jTokens.ToArray();
                 if (SearchTokens.Any())
@@ -102,13 +140,22 @@ namespace JsonDataExplorer
                         MessageBoxIcon.Warning);
                     textBoxQuery.Focus();
                 }
+
                 ValidateButtons();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(string.Format(Resources.STR_ERROR_PROCESSING_QUERY, ex.Message), Resources.STR_TITLE_ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
+            finally
+            {
+                buttonOpenFileDialog.Enabled = true;
+                buttonReloadFile.Enabled = true;
+                buttonExecute.Enabled = true;
+                buttonPreviousItem.Enabled = true;
+                buttonNextItem.Enabled = true;
+                Cursor = Cursors.Default;
+            }
         }
 
         private void ButtonNextItem_Click(object sender, EventArgs e)
@@ -169,6 +216,34 @@ namespace JsonDataExplorer
         #endregion
 
         #region Helper Functions
+
+        private void LoadFileContent(bool force = false)
+        {
+            if (force || PreviousFilePath != InputFilePath || string.IsNullOrEmpty(FileContent))
+            {
+                FileContent = File.ReadAllText(InputFilePath);
+                PreviousFilePath = InputFilePath;
+            }
+        }
+
+        private void UpdateHistory()
+        {
+            if (!string.IsNullOrWhiteSpace(InputFilePath) && !AutoCompleteFileHistory.Contains(InputFilePath))
+            {
+                AutoCompleteFileHistory.Add(InputFilePath);
+                textBoxInputFilePath.AutoCompleteCustomSource = AutoCompleteFileHistory;
+
+                File.AppendAllText(FileHistoryPath, InputFilePath + Environment.NewLine);
+            }
+
+            if (!string.IsNullOrWhiteSpace(Query) && !AutoCompleteQueryHistory.Contains(Query))
+            {
+                AutoCompleteQueryHistory.Add(InputFilePath);
+                textBoxQuery.AutoCompleteCustomSource = AutoCompleteQueryHistory;
+
+                File.AppendAllText(QueryHistoryPath, Query + Environment.NewLine);
+            }
+        }
 
         private void SetDisplayResultSummary(int count = 0)
         {
